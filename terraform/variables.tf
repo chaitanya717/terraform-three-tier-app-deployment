@@ -21,8 +21,6 @@ variable "iam-instance-role-name" {}
 variable "iam-instance-role-policy-name" {}
 
 
-
-variable "iam_instance_profile_name" {}
 variable "region" {}
 
 variable "key_name" {}
@@ -46,31 +44,25 @@ variable "alb_application_tier_enable_deletion_protection" {}
 
 # rds variables
 
-# variable "rds_db_password" {
-#   type = string
-# }
-
 variable "multi_az" {
   type = bool
 }
 
-# variable "db_name" {
-#   type = string
-# }
+
 
 variable "engine_version" {
   type = string
-  # default = "5.7.31"
+  default = "5.7.31"
 }
 
 variable "allocated_storage" {
   type = number
-  # default = 10
+  default = 1
 }
 
 variable "instance_class" {
   type = string
-  # default = "db.t3.micro"
+  default = "db.t3.micro"
 }
 
 variable "db_engine" {
