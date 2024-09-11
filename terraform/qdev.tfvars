@@ -27,7 +27,7 @@ launch_template_name_presentetion_tier = "presentation_launch_temp"
 instance_type_presentetion_tier = "t2.micro"
 
 launch_template_name_application_tier = "application_launch_temp"
-launch_template_name_application_tier = "t2.micro"
+instance_type_application_tier = "t2.micro"
 
 # Load Balancer variables
 
