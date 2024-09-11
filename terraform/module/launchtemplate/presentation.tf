@@ -59,7 +59,7 @@ resource "aws_launch_template" "launch_template_presentetion_tier" {
     security_groups = var.security_groups_presentetion_tier
   }
 
-  user_data = base64decode(templatefile("./../user-data/user-data-presentation-tier.sh",{
+  user_data = base64decode(templatefile("./user-data-presentation-tier.sh",{
     application_load_balancer = "${var.load_balancer_presentetion_tier}"
     ecr_url = "${var.ecr_url}"
     ecr_repo_name = "${var.ecr_repo_name_presentetion_tier}"
