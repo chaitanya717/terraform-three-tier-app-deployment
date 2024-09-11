@@ -73,7 +73,7 @@ resource "aws_launch_template" "launch_template_application_tier" {
     security_groups = var.security_groups_application_tier
   }
 
- user_data = base64encode(templatefile("./user-data-application-tier.sh", {
+ user_data = base64encode(templatefile("user-data-application-tier.sh", {
     rds_hostname  = "${var.rds_db_adresss}",
     rds_username  = "${var.rds_db_admin}",
     rds_password  = "${var.rds_db_password}",
