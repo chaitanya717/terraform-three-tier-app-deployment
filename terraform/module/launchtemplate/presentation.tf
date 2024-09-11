@@ -1,5 +1,4 @@
 # global for this module 
-data "aws_caller_identity" "current" {}
 variable "ecr_url" {}
 variable "region" {}
 # ==========
@@ -11,7 +10,7 @@ variable "iam_instance_profile_name" {}
 variable "launch_template_name_presentetion_tier" {}
 variable "instance_type_presentetion_tier" {}
 variable "security_groups_presentetion_tier" {
-    type = list()
+    type = list(string)
 }
 variable "key_name_presentation_tier" {
   
@@ -22,7 +21,6 @@ variable "ecr_repo_name_presentetion_tier" {}
 
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
-
   owners = ["amazon"]
 
   filter {

@@ -13,9 +13,6 @@ variable "load_balancer_application_tier" {}
 variable "ecr_repo_name_application_tier" {}
 variable "key_name_application_tier" {}
 
-variable "ecr_repo_name_application_tier" {
-  type = string
-}
 variable "rds_db_adresss" {
   type = string
 }
@@ -51,24 +48,6 @@ variable "db_engine" {
   type = string
 }
 variable "nat_gateway" {}
-
-
-
-data "aws_ami" "amazon_linux_2" {
-  most_recent = true
-
-  owners = ["amazon"]
-
-  filter {
-    name   = "owner-alias"
-    values = ["amazon"]
-  }
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm*"]
-  }
-}
 
 
 resource "aws_launch_template" "launch_template_application_tier" {

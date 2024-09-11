@@ -63,7 +63,7 @@ nat_gateway = module.vpc.natgetway
 }
 
 module "loab_balancer" {
-source = "./module/Alb"
+source = "./module/alb"
 vpc_id = module.vpc.vpc_id
 
 alb_presentation_tier_name = var.alb_presentation_tier_name
