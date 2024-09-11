@@ -79,41 +79,41 @@ alb_application_tier_subnets = module.vpc.private_subnet.*.id
 alb_application_tier_enable_deletion_protection = var.alb_presentation_tier_enable_deletion_protection
 }
 
-# module "rds_instance" {
-#   source = "./module/Rds"
-#   db_engine = var.db_engine
-#   db_name = local.db_Creds.rdsdb 
-#   rds_db_admin =  local.db_Creds.rdsusername
-#   rds_db_password = local.db_Creds.rdspassword
-#   allocated_storage = var.allocated_storage
-#   engine_version = var.engine_version
-#   instance_class = var.instance_class
-#   multi_az = var.multi_az
-# }
+module "rds_instance" {
+  source = "./module/Rds"
+  db_engine = var.db_engine
+  db_name = local.db_Creds.rdsdb 
+  rds_db_admin =  local.db_Creds.rdsusername
+  rds_db_password = local.db_Creds.rdspassword
+  allocated_storage = var.allocated_storage
+  engine_version = var.engine_version
+  instance_class = var.instance_class
+  multi_az = var.multi_az
+}
 
-# module "autoscaling_group" {
-#   source = "./module/AutoScaling"
-#   appname = var.app_name
-#   env = var.enviroment
+module "autoscaling_group" {
+  source = "./module/AutoScaling"
+  appname = var.app_name
+  env = var.enviroment
 
-# asg-presentation-tier-name = var.asg-presentation-tier-name
-# asg-presentation-tier-max_size = var.asg-presentation-tier-max_size
-# asg-presentation-tier-min_size = var.asg-presentation-tier-min_size
-# asg-presentation-tier-health_check_grace_period = var.asg-presentation-tier-health_check_grace_period
-# asg-presentation-tier-health_check_type = var.asg-presentation-tier-health_check_type
-# asg-presentation-tier-desired_capacity = var.asg-presentation-tier-desired_capacity
-# asg-presentation-tier-launch_template_id = module.ec2_servers.presentation_tier_template_id
-# asg-presentation-tier-vpc_zone_identifier = module.vpc.public_subnet.*.id
+asg-presentation-tier-name = var.asg-presentation-tier-name
+asg-presentation-tier-max_size = var.asg-presentation-tier-max_size
+asg-presentation-tier-min_size = var.asg-presentation-tier-min_size
+asg-presentation-tier-health_check_grace_period = var.asg-presentation-tier-health_check_grace_period
+asg-presentation-tier-health_check_type = var.asg-presentation-tier-health_check_type
+asg-presentation-tier-desired_capacity = var.asg-presentation-tier-desired_capacity
+asg-presentation-tier-launch_template_id = module.ec2_servers.presentation_tier_template_id
+asg-presentation-tier-vpc_zone_identifier = module.vpc.public_subnet.*.id
 
-# asg-application-tier-desired_capacity = var.asg-application-tier-desired_capacity
-# asg-application-tier-health_check_grace_period = var.asg-application-tier-health_check_grace_period
-# asg-application-tier-health_check_type = var.asg-application-tier-health_check_type
-# asg-application-tier-launch_template_id = module.ec2_servers.application_tier_template_id
-# asg-application-tier-max_size = var.asg-application-tier-max_size
-# asg-application-tier-min_size = var.asg-application-tier-min_size
-# asg-application-tier-name = var.asg-application-tier-name
-# asg-application-tier-vpc_zone_identifier = module.vpc.private_subnet.*.id
+asg-application-tier-desired_capacity = var.asg-application-tier-desired_capacity
+asg-application-tier-health_check_grace_period = var.asg-application-tier-health_check_grace_period
+asg-application-tier-health_check_type = var.asg-application-tier-health_check_type
+asg-application-tier-launch_template_id = module.ec2_servers.application_tier_template_id
+asg-application-tier-max_size = var.asg-application-tier-max_size
+asg-application-tier-min_size = var.asg-application-tier-min_size
+asg-application-tier-name = var.asg-application-tier-name
+asg-application-tier-vpc_zone_identifier = module.vpc.private_subnet.*.id
 
-# arn_presentation_tier_target_group = module.loab_balancer.target_group_presentation_tier_arn
-# arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
-# }
+arn_presentation_tier_target_group = module.loab_balancer.target_group_presentation_tier_arn
+arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
+}
