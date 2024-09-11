@@ -59,7 +59,7 @@ launch_template_name_application_tier = var.launch_template_name_application_tie
 instance_type_application_tier = var.instance_type_application_tier
 ecr_repo_name_application_tier = local.db_Creds.backend_repo_ecr
 security_groups_application_tier = [module.security_groups.application_tier_sg_id]
-nat_gateway = module.vpc.natgetway
+nat_gateway = module.vpc.nat_gateway
 }
 
 module "loab_balancer" {
@@ -69,13 +69,13 @@ vpc_id = module.vpc.vpc_id
 alb_presentation_tier_name = var.alb_presentation_tier_name
 alb_presentation_tier_load_balancer_type = var.alb_presentation_tier_load_balancer_type
 alb_presentation_tier_security_groups = [module.security_groups.alb_presentation_tier_sg_id]
-alb_presentation_tier_subnets = module.vpc.public_subnet.*.id
+alb_presentation_tier_subnets = module.vpc.public_subnets.*.id
 alb_presentation_tier_enable_deletion_protection = var.alb_presentation_tier_enable_deletion_protection
 
 alb_application_tier_name = var.alb_application_tier_name
 alb_application_tier_load_balancer_type = var.alb_application_tier_load_balancer_type
 alb_application_tier_security_groups = [module.security_groups.alb_application_tier_sg_id]
-alb_application_tier_subnets = module.vpc.private_subnet.*.id
+alb_application_tier_subnets = module.vpc.private_subnets.*.id
 alb_application_tier_enable_deletion_protection = var.alb_presentation_tier_enable_deletion_protection
 }
 
@@ -103,7 +103,7 @@ asg-presentation-tier-health_check_grace_period = var.asg-presentation-tier-heal
 asg-presentation-tier-health_check_type = var.asg-presentation-tier-health_check_type
 asg-presentation-tier-desired_capacity = var.asg-presentation-tier-desired_capacity
 asg-presentation-tier-launch_template_id = module.ec2_servers.presentation_tier_template_id
-asg-presentation-tier-vpc_zone_identifier = module.vpc.public_subnet.*.id
+asg-presentation-tier-vpc_zone_identifier = module.vpc.public_subnets.*.id
 
 asg-application-tier-desired_capacity = var.asg-application-tier-desired_capacity
 asg-application-tier-health_check_grace_period = var.asg-application-tier-health_check_grace_period
@@ -112,7 +112,7 @@ asg-application-tier-launch_template_id = module.ec2_servers.application_tier_te
 asg-application-tier-max_size = var.asg-application-tier-max_size
 asg-application-tier-min_size = var.asg-application-tier-min_size
 asg-application-tier-name = var.asg-application-tier-name
-asg-application-tier-vpc_zone_identifier = module.vpc.private_subnet.*.id
+asg-application-tier-vpc_zone_identifier = module.vpc.private_subnets.*.id
 
 arn_presentation_tier_target_group = module.loab_balancer.target_group_presentation_tier_arn
 arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
