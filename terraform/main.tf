@@ -69,15 +69,16 @@ vpc_id = module.vpc.vpc_id
 alb_presentation_tier_name = var.alb_presentation_tier_name
 alb_presentation_tier_load_balancer_type = var.alb_presentation_tier_load_balancer_type
 alb_presentation_tier_security_groups = [module.security_groups.alb_presentation_tier_sg_id]
-alb_presentation_tier_subnets = module.vpc.public_subnets.*.id
+alb_presentation_tier_subnets = [module.vpc.public_subnets[0],module.vpc.public_subnets[1]]
 alb_presentation_tier_enable_deletion_protection = var.alb_presentation_tier_enable_deletion_protection
 
 alb_application_tier_name = var.alb_application_tier_name
 alb_application_tier_load_balancer_type = var.alb_application_tier_load_balancer_type
 alb_application_tier_security_groups = [module.security_groups.alb_application_tier_sg_id]
-alb_application_tier_subnets = module.vpc.private_subnets.*.id
+alb_application_tier_subnets = [module.vpc.private_subnets[0],module.vpc.private_subnets[1]]
 alb_application_tier_enable_deletion_protection = var.alb_presentation_tier_enable_deletion_protection
 }
+
 
 module "rds_instance" {
   source = "./module/Rds"
@@ -103,7 +104,7 @@ asg-presentation-tier-health_check_grace_period = var.asg-presentation-tier-heal
 asg-presentation-tier-health_check_type = var.asg-presentation-tier-health_check_type
 asg-presentation-tier-desired_capacity = var.asg-presentation-tier-desired_capacity
 asg-presentation-tier-launch_template_id = module.ec2_servers.presentation_tier_template_id
-asg-presentation-tier-vpc_zone_identifier = module.vpc.public_subnets.*.id
+asg-presentation-tier-vpc_zone_identifier = [module.vpc.public_subnets[0],module.vpc.public_subnets[1]]
 
 asg-application-tier-desired_capacity = var.asg-application-tier-desired_capacity
 asg-application-tier-health_check_grace_period = var.asg-application-tier-health_check_grace_period
@@ -112,7 +113,7 @@ asg-application-tier-launch_template_id = module.ec2_servers.application_tier_te
 asg-application-tier-max_size = var.asg-application-tier-max_size
 asg-application-tier-min_size = var.asg-application-tier-min_size
 asg-application-tier-name = var.asg-application-tier-name
-asg-application-tier-vpc_zone_identifier = module.vpc.private_subnets.*.id
+asg-application-tier-vpc_zone_identifier = [module.vpc.private_subnets[0],module.vpc.private_subnets[1]]
 
 arn_presentation_tier_target_group = module.loab_balancer.target_group_presentation_tier_arn
 arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
