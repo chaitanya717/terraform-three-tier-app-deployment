@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "value"
-    key = "./terraform.state"
+    bucket = "threetierroute53state"
+    key = "./terraform.tfstate"
     region = "eu-west-1"
   }
+  
 }
