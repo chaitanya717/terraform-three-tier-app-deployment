@@ -96,7 +96,8 @@ resource "aws_nat_gateway" "gw" {
 resource "aws_route_table" "public-subnet" {
   vpc_id = aws_vpc.vpc.id
    route  {
-    cidr_block = ["0.0.0.0/0"]
+    # cidr
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet-getway.id
    }
 
@@ -117,7 +118,7 @@ resource "aws_route_table" "private-subnet" {
    vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = ["0.0.0.0/0"]
+    cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.gw[count.index].id
   }
 
