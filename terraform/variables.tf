@@ -78,7 +78,7 @@ variable "instance_class" {
 
 variable "db_engine" {
   type = string
-  # default = "mysql"
+  default = "mysql"
 }
 
 # auto scaling
