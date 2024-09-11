@@ -20,12 +20,12 @@ module "security_groups" {
   vpc_id = module.vpc.vpc_id
 }
 
-# module "iam-profile" {
-#   source = "./module/iam-roles"
-#   iam-instance-profile-name = var.iam-instance-profile-name
-#   iam-instance-role-name = var.iam-instance-role-name
-#   iam-instance-role-policy-name = var.iam-instance-role-policy-name
-# }
+module "iam-profile" {
+  source = "./module/iam-roles"
+  iam-instance-profile-name = var.iam-instance-profile-name
+  iam-instance-role-name = var.iam-instance-role-name
+  iam-instance-role-policy-name = var.iam-instance-role-policy-name
+}
 
 # module "ec2_servers" {
 # source = "./module/launchtemplate"
