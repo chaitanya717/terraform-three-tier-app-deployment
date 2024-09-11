@@ -44,7 +44,7 @@ alb_application_tier_enable_deletion_protection = false
   engine_version    = "5.7.31"
   multi_az          = true
   instance_class    = "db.t3.micro"
-  engine            = "my-sql"
+  engine            = "mysql"
 
   # auto scaling group
 
