@@ -26,10 +26,7 @@ variable "iam_instance_profile_name" {}
 variable "region" {}
 
 variable "key_name" {}
-variable "public_key" {
-  type = string
-  sensitive = true
-}
+
 variable "launch_template_name_presentetion_tier" {}
 variable "instance_type_presentetion_tier" {}
 
