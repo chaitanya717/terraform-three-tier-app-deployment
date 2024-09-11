@@ -13,12 +13,12 @@ route_table_name_public = var.route_table_name_public
 nat_gateway_name = var.nat_gateway_name
 }
 
-# module "security_groups" {
-#   source = "./module/security-group"
-#   app_name = var.app_name
-#   enviroment = var.enviroment
-#   vpc_id = module.vpc.vpc_id
-# }
+module "security_groups" {
+  source = "./module/security-group"
+  app_name = var.app_name
+  enviroment = var.enviroment
+  vpc_id = module.vpc.vpc_id
+}
 
 # module "iam-profile" {
 #   source = "./module/iam-roles"
