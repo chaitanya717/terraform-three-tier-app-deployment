@@ -118,3 +118,4 @@ asg-application-tier-vpc_zone_identifier = [module.vpc.private_subnets[0],module
 arn_presentation_tier_target_group = module.loab_balancer.target_group_presentation_tier_arn
 arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
 }
+

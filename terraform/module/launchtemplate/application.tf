@@ -73,7 +73,8 @@ resource "aws_launch_template" "launch_template_application_tier" {
     security_groups = var.security_groups_application_tier
   }
 
- user_data = base64encode(templatefile("user-data-application-tier.sh", {
+ user_data = base64encode(
+   <<-EOF
     rds_hostname  = "${var.rds_db_adresss}",
     rds_username  = "${var.rds_db_admin}",
     rds_password  = "${var.rds_db_password}",
@@ -82,7 +83,9 @@ resource "aws_launch_template" "launch_template_application_tier" {
     ecr_url       = "${var.ecr_url}",
     ecr_repo_name = "${var.ecr_repo_name_application_tier}",
     region        = "${var.region}"
-  }))
+
+    EOF
+  )
 
   depends_on = [ var.nat_gateway ]
 }

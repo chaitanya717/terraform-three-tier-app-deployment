@@ -59,12 +59,16 @@ resource "aws_launch_template" "launch_template_presentetion_tier" {
     security_groups = var.security_groups_presentetion_tier
   }
 
-  user_data = base64decode(templatefile("user-data-presentation-tier.sh",{
-    application_load_balancer = "${var.load_balancer_presentetion_tier}"
-    ecr_url = "${var.ecr_url}"
-    ecr_repo_name = "${var.ecr_repo_name_presentetion_tier}"
-    region = "${var.region}"
-  }))
+  user_data = base64decode(  
+   <<-EOF
+    #!/bin/bash
+    echo "Configuring presentation tier"
+    echo "Load balancer: ${application_load_balancer}"
+    echo "ECR URL: ${ecr_url}"
+    echo "ECR Repo: ${ecr_repo_name}"
+    echo "Region: ${region}"
+  EOF
+  )
 
   depends_on = [ var.load_balancer_application_tier ]
 }
