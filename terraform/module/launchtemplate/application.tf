@@ -7,7 +7,7 @@ output "application_tier_template_id" {
 variable "launch_template_name_application_tier" {}
 variable "instance_type_application_tier" {}
 variable "security_groups_application_tier" {
-    type = list()
+    type = list(string)
 }
 variable "load_balancer_application_tier" {}
 variable "ecr_repo_name_application_tier" {}
