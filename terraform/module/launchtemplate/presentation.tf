@@ -61,12 +61,14 @@ resource "aws_launch_template" "launch_template_presentetion_tier" {
 
   user_data = base64decode(  
    <<-EOF
-    #!/bin/bash
-    echo "Configuring presentation tier"
-    echo "Load balancer: ${application_load_balancer}"
-    echo "ECR URL: ${ecr_url}"
-    echo "ECR Repo: ${ecr_repo_name}"
-    echo "Region: ${region}"
+#!/bin/bash
+sudo yum update -y
+sudo yum install docker -y
+sudo service docker start
+sudo systemctl enable docker
+sudo usermod -a -G docker ec2-user
+aws ecr get-login-password --region ${var.region}  | docker login --username AWS --password-stdin ${var.ecr_url}
+docker run --restart always -e APPLICATION_LOAD_BALANCER=${var.load_balancer_application_tier} -p 3000:3000 -d ${var.ecr_url}/${var.ecr_repo_name_presentetion_tier}:latest
   EOF
   )
 

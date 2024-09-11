@@ -31,6 +31,10 @@ variable "multi_az" {
 variable "db_name" {
   type = string
 }
+variable "db_port" {
+  type = number
+  default = 3306
+}
 
 variable "engine_version" {
   type = string
@@ -73,19 +77,19 @@ resource "aws_launch_template" "launch_template_application_tier" {
     security_groups = var.security_groups_application_tier
   }
 
- user_data = base64encode(
-   <<-EOF
-    rds_hostname  = "${var.rds_db_adresss}",
-    rds_username  = "${var.rds_db_admin}",
-    rds_password  = "${var.rds_db_password}",
-    rds_port      = 3306,
-    rds_db_name   ="${var.db_name}",
-    ecr_url       = "${var.ecr_url}",
-    ecr_repo_name = "${var.ecr_repo_name_application_tier}",
-    region        = "${var.region}"
+user_data = base64encode(
+  <<-EOF
+  #!/bin/bash
+  sudo yum update -y
+  sudo yum install docker -y
+  sudo service docker start
+  sudo systemctl enable docker
+  sudo usermod -a -G docker ec2-user
 
-    EOF
-  )
+  aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${var.ecr_url}
+  docker run -p 3000:3000 --restart always -e RDS_HOSTNAME=${var.rds_db_adresss} -e RDS_USERNAME=${var.rds_db_admin} -e RDS_PASSWORD=${var.rds_db_password} -e RDS_PORT=${var.db_port} -e RDS_DB_NAME=${var.db_name} -d ${var.ecr_url}/${var.ecr_repo_name_application_tier}:latest
+  EOF
+)
 
   depends_on = [ var.nat_gateway ]
 }
