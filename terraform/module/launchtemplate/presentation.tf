@@ -59,18 +59,23 @@ resource "aws_launch_template" "launch_template_presentetion_tier" {
     security_groups = var.security_groups_presentetion_tier
   }
 
-  user_data = base64decode(  
-   <<-EOF
-#!/bin/bash
-sudo yum update -y
-sudo yum install docker -y
-sudo service docker start
-sudo systemctl enable docker
-sudo usermod -a -G docker ec2-user
-aws ecr get-login-password --region ${var.region}  | docker login --username AWS --password-stdin ${var.ecr_url}
-docker run --restart always -e APPLICATION_LOAD_BALANCER=${var.load_balancer_application_tier} -p 3000:3000 -d ${var.ecr_url}/${var.ecr_repo_name_presentetion_tier}:latest
+  user_data = base64encode(
+  <<-EOF
+  #!/bin/bash
+  sudo yum update -y
+  sudo yum install docker -y
+  sudo service docker start
+  sudo systemctl enable docker
+  sudo usermod -a -G docker ec2-user
+
+  # Login to AWS ECR
+  aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${var.ecr_url}
+
+  # Run the Docker container
+  docker run --restart always -e APPLICATION_LOAD_BALANCER=${var.load_balancer_application_tier.dns_name} -p 3000:3000 -d ${var.ecr_url}/${var.ecr_repo_name_presentetion_tier}:latest
   EOF
-  )
+)
+
 
   depends_on = [ var.load_balancer_application_tier ]
 }
