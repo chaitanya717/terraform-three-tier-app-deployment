@@ -119,3 +119,8 @@ arn_presentation_tier_target_group = module.loab_balancer.target_group_presentat
 arn_application_tier_target_group = module.loab_balancer.target_group_application_tier_arn
 }
 
+
+module "route53" {
+  source = "./module/route53"
+  elb_name = module.loab_balancer.presentation_alb.name
+}
