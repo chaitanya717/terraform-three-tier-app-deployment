@@ -4,6 +4,7 @@ data "aws_caller_identity" "current" {}
 output "application_tier_template_id" {
   value = aws_launch_template.launch_template_application_tier.id
 }
+
 variable "launch_template_name_application_tier" {}
 variable "instance_type_application_tier" {}
 variable "security_groups_application_tier" {
@@ -73,7 +74,7 @@ resource "aws_launch_template" "launch_template_application_tier" {
   image_id = data.aws_ami.amazon_linux_2.id
   
   network_interfaces {
-    associate_carrier_ip_address = true
+    associate_carrier_ip_address = false
     security_groups = var.security_groups_application_tier
   }
 

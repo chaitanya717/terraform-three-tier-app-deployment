@@ -84,7 +84,7 @@ resource "aws_alb_listener" "application_tier_lb_listener" {
 
  default_action {
    type =  "forward"
-   target_group_arn = aws_lb_target_group.presentetion-tg.arn
+   target_group_arn = aws_lb_target_group.application-tg.arn
  }
 
 }
