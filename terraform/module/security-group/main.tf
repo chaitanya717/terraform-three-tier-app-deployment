@@ -62,8 +62,8 @@ resource "aws_security_group" "alb_presentation_tier" {
 
   ingress {
     description      = "HTTP from anywhere"
-    from_port        = 8000
-    to_port          = 8000
+    from_port        = 3000
+    to_port          = 3000
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
@@ -95,8 +95,8 @@ resource "aws_security_group" "application_tier" {
 
   ingress {
     description     = "HTTP from public subnet"
-    from_port       = 8000
-    to_port         = 8000
+    from_port       = 3000
+    to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_application_tier.id]
   }

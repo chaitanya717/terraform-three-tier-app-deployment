@@ -87,7 +87,7 @@ user_data = base64encode(
   sudo usermod -a -G docker ubuntu
 
   aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${var.ecr_url}
-  docker run -p 8000:8000 --restart always -e RDS_HOSTNAME=${var.rds_db_adresss} -e RDS_USERNAME=${var.rds_db_admin} -e RDS_PASSWORD=${var.rds_db_password} -e RDS_PORT=${var.db_port} -e RDS_DB_NAME=${var.db_name} -d ${var.ecr_url}/${var.ecr_repo_name_application_tier}:latest
+  docker run -p 3000:3000 --restart always -e RDS_HOSTNAME=${var.rds_db_adresss} -e RDS_USERNAME=${var.rds_db_admin} -e RDS_PASSWORD=${var.rds_db_password} -e RDS_PORT=${var.db_port} -e RDS_DB_NAME=${var.db_name} -d ${var.ecr_url}/${var.ecr_repo_name_application_tier}:latest
   EOF
 )
 
