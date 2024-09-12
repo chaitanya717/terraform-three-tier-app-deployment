@@ -64,7 +64,7 @@ resource "aws_launch_template" "launch_template_presentetion_tier" {
   sudo yum install docker -y
   sudo service docker start
   sudo systemctl enable docker
-  sudo usermod -a -G docker ubuntu
+  sudo usermod -a -G docker ec2-user
 
   # Login to AWS ECR
   aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${var.ecr_url}
