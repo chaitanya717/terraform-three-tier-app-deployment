@@ -52,7 +52,7 @@ variable "multi_az" {
 
 variable "engine_version" {
   type = string
-  default = "5.7.31"
+  default = "5.7"
 }
 
 variable "allocated_storage" {

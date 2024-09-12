@@ -41,7 +41,7 @@ alb_application_tier_enable_deletion_protection = false
 
 # RDS Instance variables
   allocated_storage = 10
-  engine_version    = "5.7.31"
+  engine_version    = "5.7"
   multi_az          = true
   instance_class    = "db.t3.micro"
   engine            = "mysql"
